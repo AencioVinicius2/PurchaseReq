@@ -26,8 +26,7 @@ Listing of stock items
 Updating product information
 <br />
 Deleting records
-<br />
-🛠️ Technologies Used
+<br />🛠️ Technologies Used
 Backend
 <br />
 .NET 8 (REST API)
