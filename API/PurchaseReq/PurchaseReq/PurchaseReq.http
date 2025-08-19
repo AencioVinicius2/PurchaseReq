@@ -1,0 +1,6 @@
+@PurchaseReq_HostAddress = http://localhost:5246
+
+GET {{PurchaseReq_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
