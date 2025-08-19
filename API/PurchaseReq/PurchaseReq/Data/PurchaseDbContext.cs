@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PurchaseReq.Models.Domain;
 
 namespace PurchaseReq.Data
 {
@@ -9,6 +10,6 @@ namespace PurchaseReq.Data
 
         }
 
-        public DbSet<> Stocks { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
     }
 }
