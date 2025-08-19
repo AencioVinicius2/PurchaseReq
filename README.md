@@ -1,5 +1,5 @@
-###📦 PurchaseReq - Purchase Request ERP <br />
-##📝 About the Project
+### 📦 PurchaseReq - Purchase Request ERP <br />
+## 📝 About the Project
 <br />
 PurchaseReq is a full-stack system developed in .NET + Angular, designed to be a modular ERP for purchasing and inventory management.
 <br />
@@ -15,7 +15,7 @@ Integration with other ERP modules
 <br />
 This project is in constant evolution and will be expanded according to business needs.
 <br />
-##🎯 Initial Objective
+🎯 Initial Objective
 <br />
 In the first development phase, the Inventory CRUD will be implemented, allowing:
 <br />
@@ -27,7 +27,7 @@ Updating product information
 <br />
 Deleting records
 <br />
-##🛠️ Technologies Used
+🛠️ Technologies Used
 Backend
 <br />
 .NET 8 (REST API)
