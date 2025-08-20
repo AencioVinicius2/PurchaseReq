@@ -1,0 +1,36 @@
+
+.main-header {
+    background-color: var(--primary-color);
+    height: 15vh;
+    display: flex;
+    justify-content: center;
+}
+
+.main-header ul {
+    display: flex;
+}
+
+.main-header ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    color: white;
+}
+
+.main-header ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+}
+
+.main-header ul li a {
+    text-decoration: none;
+    color: white
+}
+
+.main-header ul li a:hover {
+    color:black;
+    cursor: pointer;
+}

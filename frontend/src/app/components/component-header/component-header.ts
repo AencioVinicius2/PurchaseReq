@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-component-header',
@@ -6,6 +7,12 @@ import { Component } from '@angular/core';
   templateUrl: './component-header.html',
   styleUrl: './component-header.css'
 })
-export class ComponentHeader {
 
+ 
+export class ComponentHeader {
+  navLinks = [
+    {label: 'home', path: '/home'},
+    {label: 'request', path: '/home'},
+    {label: 'stocks', path: '/stocks'}
+  ]
 }
