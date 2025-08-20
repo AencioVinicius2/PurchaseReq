@@ -22,7 +22,22 @@ namespace PurchaseReq.Controllers
         public async Task<IActionResult> GetAllStockItems()
         {
             var items = await dbContext.Stocks.ToListAsync();
+            if(items is null)
+            {
+                return NotFound(items);
+            }
             return Ok(items);
+        }
+
+        [HttpGet]
+        [Route("{code}")]
+        public async Task<IActionResult> GetStockItem(int code)
+        {
+            var item = await dbContext.Stocks.FirstOrDefaultAsync(x => x.Code == code);
+            if (item is null) {
+                return NotFound(item);
+            }
+            return Ok(item);
         }
 
         [HttpPost]
@@ -35,8 +50,8 @@ namespace PurchaseReq.Controllers
                 Code = request.Code,
                 Quantity = request.Quantity,
                 Price = request.Price,
-                CreatedAt = DateTime.Now,
-                Updated = DateTime.Now,
+                CreatedAt =  DateTime.Now,
+                Updated =  DateTime.Now,
             };
 
             var existItem = await dbContext.Stocks.FirstOrDefaultAsync(x => x.Code == Item.Code);
