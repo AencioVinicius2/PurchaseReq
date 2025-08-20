@@ -102,10 +102,27 @@ namespace PurchaseReq.Controllers
                 return BadRequest("Quantity must be at least 1.");
             }
 
-
-
         }
 
-        
+        [HttpDelete]
+        [Route("{code}")]
+        public async Task<IActionResult> DeleteStockItem(int code)
+        {
+            var item = await dbContext.Stocks.FirstOrDefaultAsync(x => x.Code == code);
+            if(item is null)
+            {
+                return NotFound(item);
+            }
+            else
+            {
+                dbContext.Remove(item);
+                dbContext.SaveChanges();
+
+                return Ok(item);
+            }
+        }
+
+
+
     }
 }
