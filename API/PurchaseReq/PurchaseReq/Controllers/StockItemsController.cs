@@ -18,18 +18,12 @@ namespace PurchaseReq.Controllers
             this.dbContext = dbContext;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllStockItems()
-        {
-            var items = await dbContext.Stocks.ToListAsync();
-            return Ok(items);
-        }
-
         [HttpPost]
         public async Task<IActionResult> AddStockItem(AddStockItemDTO request)
         {
-            var Item = new Stock { 
-                Id = Guid.NewGuid(), 
+            var Item = new Stock
+            {
+                Id = Guid.NewGuid(),
                 Name = request.Name,
                 Description = request.Description,
                 Code = request.Code,
@@ -40,7 +34,7 @@ namespace PurchaseReq.Controllers
             };
 
             var existItem = await dbContext.Stocks.FirstOrDefaultAsync(x => x.Code == Item.Code);
-            if(existItem?.Code is null)
+            if (existItem?.Code is null)
             {
                 if (Item.Quantity >= 1)
                 {
@@ -53,10 +47,82 @@ namespace PurchaseReq.Controllers
                     return BadRequest("Quantity must be at least 1.");
                 }
 
-            } else
+            }
+            else
             {
                 return BadRequest("Item code must be unique.");
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllStockItems()
+        {
+            var items = await dbContext.Stocks.ToListAsync();
+            if(items is null)
+            {
+                return NotFound(items);
+            }
+            return Ok(items);
+        }
+
+        [HttpGet]
+        [Route("{code}")]
+        public async Task<IActionResult> GetStockItem(int code)
+        {
+            var item = await dbContext.Stocks.FirstOrDefaultAsync(x => x.Code == code);
+            if (item is null) {
+                return NotFound(item);
+            }
+            return Ok(item);
+        }
+
+        [HttpPut]
+        [Route("{code}")]
+        public async Task<IActionResult> UpdateStockItem(int code, UpdateStockItemDTO itemUpdate)
+        {
+            var item = await dbContext.Stocks.FirstOrDefaultAsync(x => x.Code == code);
+            if (item is null)
+            {
+                return NotFound(item);
+            }
+            else if (itemUpdate.Quantity >= 1)
+            {
+                item.Name = itemUpdate.Name;
+                item.Description = itemUpdate.Description;
+                item.Quantity = itemUpdate.Quantity;
+                item.Price = itemUpdate.Price;
+                item.Updated = DateTime.Now;
+
+                dbContext.SaveChanges();
+
+                return Ok(item);
+            }
+            else
+            {
+                return BadRequest("Quantity must be at least 1.");
+            }
+
+        }
+
+        [HttpDelete]
+        [Route("{code}")]
+        public async Task<IActionResult> DeleteStockItem(int code)
+        {
+            var item = await dbContext.Stocks.FirstOrDefaultAsync(x => x.Code == code);
+            if(item is null)
+            {
+                return NotFound(item);
+            }
+            else
+            {
+                dbContext.Remove(item);
+                dbContext.SaveChanges();
+
+                return Ok(item);
+            }
+        }
+
+
+
     }
 }
