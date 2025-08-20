@@ -1,7 +1,11 @@
 <div class="main-div">
 
     <div class="sub-div-content">
-        teste
+        <div *ngIf="stocksItems$ | async as stocksItems">
+            <ul>
+                <li *ngFor="let item of stocksItems">{{item.name}}</li>
+            </ul>
+        </div>
     </div>
 
 </div>

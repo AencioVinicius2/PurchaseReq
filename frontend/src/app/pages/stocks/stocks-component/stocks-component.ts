@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
+import { IStockItems } from '../../../Models/stockItems.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-stocks-component',
@@ -7,5 +10,11 @@ import { Component } from '@angular/core';
   styleUrl: './stocks-component.css'
 })
 export class StocksComponent {
+  http = inject(HttpClient);
 
+  stocksItems$ = this.getStockItems();
+
+  private getStockItems(): Observable<IStockItems[]> {
+    return this.http.get<IStockItems[]>('https://localhost:7037/api/StockItems')
+  }
 }
