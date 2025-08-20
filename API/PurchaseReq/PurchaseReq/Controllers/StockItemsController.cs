@@ -85,12 +85,25 @@ namespace PurchaseReq.Controllers
             {
                 return NotFound(item);
             }
+            else if (itemUpdate.Quantity >= 1)
+            {
+                item.Name = itemUpdate.Name;
+                item.Description = itemUpdate.Description;
+                item.Quantity = itemUpdate.Quantity;
+                item.Price = itemUpdate.Price;
+                item.Updated = DateTime.Now;
 
-            item.Name = itemUpdate.Name;
+                dbContext.SaveChanges();
 
-            dbContext.SaveChanges();
+                return Ok(item);
+            }
+            else
+            {
+                return BadRequest("Quantity must be at least 1.");
+            }
 
-            return Ok(item);
+
+
         }
 
         
