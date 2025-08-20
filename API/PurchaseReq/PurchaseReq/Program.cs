@@ -1,7 +1,12 @@
 using PurchaseReq.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
+var cultureInfo = new CultureInfo("pt-BR");
+
+// Culture info //
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
 
 // Add services to the container.
 
