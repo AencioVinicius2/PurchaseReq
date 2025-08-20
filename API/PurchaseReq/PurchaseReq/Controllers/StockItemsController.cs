@@ -18,6 +18,42 @@ namespace PurchaseReq.Controllers
             this.dbContext = dbContext;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddStockItem(AddStockItemDTO request)
+        {
+            var Item = new Stock
+            {
+                Id = Guid.NewGuid(),
+                Name = request.Name,
+                Description = request.Description,
+                Code = request.Code,
+                Quantity = request.Quantity,
+                Price = request.Price,
+                CreatedAt = DateTime.Now,
+                Updated = DateTime.Now,
+            };
+
+            var existItem = await dbContext.Stocks.FirstOrDefaultAsync(x => x.Code == Item.Code);
+            if (existItem?.Code is null)
+            {
+                if (Item.Quantity >= 1)
+                {
+                    await dbContext.Stocks.AddAsync(Item);
+                    await dbContext.SaveChangesAsync();
+                    return Ok(request);
+                }
+                else
+                {
+                    return BadRequest("Quantity must be at least 1.");
+                }
+
+            }
+            else
+            {
+                return BadRequest("Item code must be unique.");
+            }
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAllStockItems()
         {
@@ -40,38 +76,23 @@ namespace PurchaseReq.Controllers
             return Ok(item);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddStockItem(AddStockItemDTO request)
+        [HttpPut]
+        [Route("{code}")]
+        public async Task<IActionResult> UpdateStockItem(int code, UpdateStockItemDTO itemUpdate)
         {
-            var Item = new Stock { 
-                Id = Guid.NewGuid(), 
-                Name = request.Name,
-                Description = request.Description,
-                Code = request.Code,
-                Quantity = request.Quantity,
-                Price = request.Price,
-                CreatedAt =  DateTime.Now,
-                Updated =  DateTime.Now,
-            };
-
-            var existItem = await dbContext.Stocks.FirstOrDefaultAsync(x => x.Code == Item.Code);
-            if(existItem?.Code is null)
+            var item = await dbContext.Stocks.FirstOrDefaultAsync(x => x.Code == code);
+            if (item is null)
             {
-                if (Item.Quantity >= 1)
-                {
-                    await dbContext.Stocks.AddAsync(Item);
-                    await dbContext.SaveChangesAsync();
-                    return Ok(request);
-                }
-                else
-                {
-                    return BadRequest("Quantity must be at least 1.");
-                }
-
-            } else
-            {
-                return BadRequest("Item code must be unique.");
+                return NotFound(item);
             }
+
+            item.Name = itemUpdate.Name;
+
+            dbContext.SaveChanges();
+
+            return Ok(item);
         }
+
+        
     }
 }
