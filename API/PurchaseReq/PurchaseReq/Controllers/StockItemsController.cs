@@ -34,6 +34,7 @@ namespace PurchaseReq.Controllers
                 Description = request.Description,
                 Code = request.Code,
                 Quantity = request.Quantity,
+                Price = request.Price,
                 CreatedAt = DateTime.Now,
                 Updated = DateTime.Now,
             };
