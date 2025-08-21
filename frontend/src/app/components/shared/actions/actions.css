@@ -1,0 +1,18 @@
+.nav_items {
+    display: flex;
+    justify-content: baseline;
+    padding: 1rem 0 0 0;
+}
+
+.items-options button {
+    width: 5rem;
+    padding: 0.5rem 0 0.5rem 0;
+    background-color: var(--secundary-color);
+    border: none;
+    margin-right: 0.1rem;
+}
+
+.items-options button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}

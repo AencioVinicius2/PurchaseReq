@@ -1,0 +1,31 @@
+.view-container {
+    background-color: rgba(0,0,0,0.5); /* fundo semi-transparente */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.view-content {
+    background-color: antiquewhite;
+    width: 80vw;
+    height: 40vw;
+}
+
+.view-content button {
+    width: 5rem;
+    padding: 0.5rem 0 0.5rem 0;
+    background-color: var(--secundary-color);
+    border: none;
+    margin-right: 0.1rem;
+}
+
+.view-content button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}

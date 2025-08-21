@@ -1,0 +1,7 @@
+<header class="main-header">
+    <ul>    
+        @for(link of navLinks; track link){
+            <li><a [routerLink]="link.path">{{link.label}}</a></li>
+        }
+    </ul>
+</header>
