@@ -26,8 +26,8 @@ export class StocksComponent {
     return this.http.get<IStockItems[]>('https://localhost:7037/api/StockItems')
   };
 
-  getItemCell() {
-    console.log('Click');
+  getItemCell(id: string): void {
+    console.log(id);
   }
 
 }
