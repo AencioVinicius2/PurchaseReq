@@ -1,16 +1,22 @@
 <div class="stocks">
     <div class="stocks__list-container">
+        <app-actions (edit)="openEditModal()" >
+
+        </app-actions>
+        <app-view *ngIf="isModalOpen" (back)="closeEditModal()">
+
+        </app-view>
         <div *ngIf="stocksItems$ | async as stocksItems" class="stocks__list">
             <ul class="stocks__list-wrapper">
                 <li class="stocks__header">
                     <span *ngFor="let title of headerTitles" class="stocks__header-cel">{{title}}</span>
                 </li>
-                <li *ngFor="let item of stocksItems" class="stocks__items" (click)="getItemCell(item.id)">
+                <li *ngFor="let item of stocksItems" (click)="getItemCell(item.id)" [ngClass]="{'selected': selectedItem == item.id}" class="stocks__items" >
                     <span class="stocks__cell">{{item.name}}</span>
                     <span class="stocks__cell">{{item.description}}</span>
-                    <span class="stocks__cell">{{item.quantity}}</span>
                     <span class="stocks__cell">{{item.code}}</span>
-                    <span class="stocks__cell">{{item.price}}</span>
+                    <span class="stocks__cell">{{item.quantity}}</span>
+                    <span class="stocks__cell">${{item.price}}</span>
                     <span class="stocks__cell">{{item.createdAt | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
                     <span class="stocks__cell">{{item.updated | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
                 </li>

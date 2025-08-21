@@ -1,9 +1,15 @@
 :root{
-    --primary-color: #585757;
+    /*--primary-color: #585757;*/
+    --primary-color: #2c81c7;
+    --secundary-color: #6fbaf7;
 }
 
 * {
     margin: 0;
     padding: 0;
+}
+
+.component__nav-options {
+    background-color: white;
 }
 

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, output, Output } from '@angular/core';
 import { IStockItems } from '../../../Models/stockItems.model';
+import { Actions } from '../../../components/shared/actions/actions';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -21,6 +22,8 @@ export class StocksComponent {
   ]
   http = inject(HttpClient);
   stocksItems$ = this.getStockItems();
+  selectedItem: string | null = null;
+  isModalOpen = false;
 
   private getStockItems(): Observable<IStockItems[]> {
     return this.http.get<IStockItems[]>('https://localhost:7037/api/StockItems')
@@ -28,6 +31,17 @@ export class StocksComponent {
 
   getItemCell(id: string): void {
     console.log(id);
+    this.selectedItem = id;
   }
+
+  openEditModal():void {
+    this.isModalOpen = true;
+  }
+
+  closeEditModal():void {
+    console.log('Close')
+    this.isModalOpen = false;
+  }
+
 
 }
