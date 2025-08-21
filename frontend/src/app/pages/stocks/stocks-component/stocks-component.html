@@ -1,11 +1,20 @@
-<div class="main-div">
-
-    <div class="sub-div-content">
-        <div *ngIf="stocksItems$ | async as stocksItems">
-            <ul>
-                <li *ngFor="let item of stocksItems">{{item.name}}</li>
+<div class="stocks">
+    <div class="stocks__list-container">
+        <div *ngIf="stocksItems$ | async as stocksItems" class="stocks__list">
+            <ul class="stocks__list-wrapper">
+                <li class="stocks__header">
+                    <span *ngFor="let title of headerTitles" class="stocks__header-cel">{{title}}</span>
+                </li>
+                <li *ngFor="let item of stocksItems" class="stocks__items" onclick="getItemCell()">
+                    <span class="stocks__cell">{{item.name}}</span>
+                    <span class="stocks__cell">{{item.description}}</span>
+                    <span class="stocks__cell">{{item.quantity}}</span>
+                    <span class="stocks__cell">{{item.code}}</span>
+                    <span class="stocks__cell">{{item.price}}</span>
+                    <span class="stocks__cell">{{item.createdAt | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
+                    <span class="stocks__cell">{{item.updated | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
+                </li>
             </ul>
         </div>
     </div>
-
 </div>

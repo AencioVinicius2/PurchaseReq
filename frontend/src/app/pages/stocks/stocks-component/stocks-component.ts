@@ -10,11 +10,24 @@ import { Observable } from 'rxjs';
   styleUrl: './stocks-component.css'
 })
 export class StocksComponent {
+  headerTitles:string[] = [
+    'Name',
+    'Description',
+    'Code',
+    'Quantity',
+    'price',
+    'Created At',
+    'Updated At'
+  ]
   http = inject(HttpClient);
-
   stocksItems$ = this.getStockItems();
 
   private getStockItems(): Observable<IStockItems[]> {
     return this.http.get<IStockItems[]>('https://localhost:7037/api/StockItems')
+  };
+
+  getItemCell() {
+    console.log('Click');
   }
+
 }

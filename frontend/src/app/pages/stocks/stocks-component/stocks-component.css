@@ -1,0 +1,37 @@
+.stocks__list{
+    margin-top: 2rem;
+}
+
+.stocks__header {
+    border: 1px solid black;
+    padding: 1rem 0 1rem 0;
+    background-color: #f3f3f3;
+}
+
+.stocks__header, .stocks__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; 
+    list-style-type: none;  
+}
+
+.stocks__items {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+    border: 0.5px solid rgb(207, 207, 207);
+}
+
+.stocks__cell, .stocks__header-cel {
+    width: 12rem;
+    text-align: center;
+}
+
+.stocks__cell {
+    padding: 0.3rem 0 0.3rem 0;
+}
+
+.stocks__items:hover {
+    background-color: aliceblue;
+}
+
