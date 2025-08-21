@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-actions',
@@ -8,9 +8,16 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class Actions {
   @Output() edit = new EventEmitter<void>();
+  @Input() selectedItem: string | null = null;
 
-  onEditClick(operation: string):void {
-    this.edit.emit();
-    console.log(operation);
+  onEditClick(operation: string, item:string):void {
+    if(item !== null) {
+      this.edit.emit();
+    }
+    console.log(operation, item);
+  }
+
+  onConfirmOperation():void {
+    console.log(this.selectedItem);
   }
 }

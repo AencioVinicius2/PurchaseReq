@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-view',
@@ -8,8 +8,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class View {
   @Output() back = new EventEmitter<void>();
+  @Input() selectedItem: string | null = null;
 
   onBackClick():void {
     this.back.emit();
+  }
+  onConfirmOperation():void {
+    console.log(this.selectedItem);
   }
 }
