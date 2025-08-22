@@ -15,6 +15,7 @@
     background-color: white;
     width: 80vw;
     height: 40vw;
+    background-color: var(--primary-color);
 }
 
 .view-content button {
@@ -32,7 +33,13 @@
 
 .view-content__item {
     border: 1px solid red;
+    background-color: var(--fields-background-color);
     display: block;
+    padding-top: 1rem;
+    margin-bottom: 1rem;
     cursor: pointer;
-    padding: 0.3rem;
+}
+
+.container-view__content {
+    background-color: var(--primary-color);
 }

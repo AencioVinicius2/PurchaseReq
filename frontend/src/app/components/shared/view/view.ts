@@ -17,4 +17,8 @@ export class View {
     console.log('estou na view')
     console.log(this.data);
   }
+
+  doOperation():void {
+    console.log(this.data);
+  }
 }
