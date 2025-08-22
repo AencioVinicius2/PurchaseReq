@@ -30,7 +30,7 @@ namespace PurchaseReq.Controllers
                 Quantity = request.Quantity,
                 Price = request.Price,
                 CreatedAt = DateTime.Now,
-                Updated = DateTime.Now,
+                UpdatedAt = DateTime.Now,
             };
 
             var existItem = await dbContext.Stocks.FirstOrDefaultAsync(x => x.Code == Item.Code);
@@ -91,7 +91,7 @@ namespace PurchaseReq.Controllers
                 item.Description = itemUpdate.Description;
                 item.Quantity = itemUpdate.Quantity;
                 item.Price = itemUpdate.Price;
-                item.Updated = DateTime.Now;
+                item.UpdatedAt = DateTime.Now;
 
                 dbContext.SaveChanges();
 
