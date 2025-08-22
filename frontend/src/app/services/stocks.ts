@@ -11,8 +11,10 @@ export class Stocks {
 
   http = inject(HttpClient);
   stocksItems$ = this.getStockItem
-  
+
+
   getStockItem(): Observable<IStockItems[]> {
+    console.log('get method called');
     return this.http.get<IStockItems[]>(this.apiUrl);
   }
 }

@@ -6,5 +6,5 @@ export interface IStockItems {
     quantity: string;
     price: string;
     createdAt: Date;
-    updated: Date;
+    updatedAt: Date;
 }

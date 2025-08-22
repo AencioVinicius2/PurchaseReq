@@ -24,29 +24,50 @@ export class StocksComponent {
     'Updated At'
   ]
   selectedItem: string | null = null;
-  itemArray: IStockItems[] | null = null;
+  itemObjOfArray: any;
   isModalOpen = false;
+  dataItem: any;
+  dataItemFormated: any;
+  dataitemObjOfArray: any[] = [];
 
-  
-  getItemCell(id: string, item: IStockItems[] ): void {
-    console.log(id);
+  getItemCell(id: string, item: IStockItems[]): void {
+    console.log('get Item cell')
     this.selectedItem = id;
-    this.itemArray = item;
+    //console.log(this.selectedItem);
+    this.itemObjOfArray = item;
   }
 
   openEditModal():void {
     this.isModalOpen = true;
-    console.log('open')
   }
 
-  openViewModal():void {
-    this.isModalOpen = true;
-    console.log('open, view')
-  }
-
-  closeEditModal():void {
-    console.log('Close')
+  closeEditModal(itemId: string | null):void {
     this.isModalOpen = false;
+    this.dataitemObjOfArray = []
+  }
+
+  openViewModal(itemId: string | null):void {
+    this.isModalOpen = true;
+    this.formatData(itemId);
+  }
+
+  formatData(itemId: string | null) {
+    for(let item of this.itemObjOfArray) {
+      if(item.id == itemId) {
+        this.dataItem = item;
+        this.dataItemFormated = []
+        this.dataItemFormated = Object.entries(this.dataItem).forEach(([key, value]) => {
+            if(key.includes('At') && value) {
+              this.dataitemObjOfArray.push(new Date(value as string).toLocaleString('pt-BR').replace(',','')
+            );
+            }else if(value == '') {
+              this.dataitemObjOfArray.push('');
+            }else {
+              this.dataitemObjOfArray.push(value);
+            }
+        }) 
+      }
+    }
   }
 
   

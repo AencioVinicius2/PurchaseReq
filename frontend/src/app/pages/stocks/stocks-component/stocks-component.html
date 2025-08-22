@@ -1,11 +1,11 @@
 <div class="stocks">
     <div class="stocks__list-container">
-        <app-actions (edit)="openEditModal()" (view)="openViewModal()" [selectedItem]="selectedItem">
+        <app-actions (edit)="openEditModal()" (view)="openViewModal(selectedItem)" [selectedItem]="selectedItem">
 
         </app-actions>
        
         <div *ngIf="stocksItems$ | async as stocksItems" class="stocks__list">
-            <app-view *ngIf="isModalOpen" (back)="closeEditModal()" [data]="[stocksItems, selectedItem]"></app-view>
+            <app-view *ngIf="isModalOpen" (back)="closeEditModal(selectedItem)" [data]="[dataitemObjOfArray]"></app-view>
             <ul class="stocks__list-wrapper">
                 <li class="stocks__header">
                     <span *ngFor="let title of headerTitles" class="stocks__header-cel">{{title}}</span>
@@ -17,7 +17,7 @@
                     <span class="stocks__cell">{{item.quantity}}</span>
                     <span class="stocks__cell">${{item.price}}</span>
                     <span class="stocks__cell">{{item.createdAt | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
-                    <span class="stocks__cell">{{item.updated | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
+                    <span class="stocks__cell">{{item.updatedAt | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
                 </li>
             </ul>
         </div>

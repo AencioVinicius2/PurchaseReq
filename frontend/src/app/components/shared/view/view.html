@@ -2,9 +2,10 @@
     <div class="view-content">
         <button (click)="onConfirmOperation()">Confirm</button>
         <button (click)="onBackClick()">Back</button>
-        <div>
-            
+        <div *ngFor="let item of data">
+            <span *ngFor="let field of item | keyvalue" class="view-content__item">
+                {{ field.value}}
+            </span>
         </div>
     </div>
-    
 </div>

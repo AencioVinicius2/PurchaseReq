@@ -29,3 +29,10 @@
     background-color: var(--primary-color);
     color: white;
 }
+
+.view-content__item {
+    border: 1px solid red;
+    display: block;
+    cursor: pointer;
+    padding: 0.3rem;
+}
