@@ -10,7 +10,7 @@ export class Actions {
   @Output() edit = new EventEmitter<void>();
   @Input() selectedItem: string | null = null;
 
-  onEditClick(operation: string, item:string):void {
+  onEditClick(operation: string, item:string | null):void {
     if(item !== null) {
       this.edit.emit();
     }
