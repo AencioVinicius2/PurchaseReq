@@ -1,17 +1,16 @@
 <div class="stocks">
     <div class="stocks__list-container">
-        <app-actions (edit)="openEditModal()" [selectedItem]="selectedItem">
+        <app-actions (edit)="openEditModal()" (view)="openViewModal()" [selectedItem]="selectedItem">
 
         </app-actions>
-        <app-view *ngIf="isModalOpen" (back)="closeEditModal()" [selectedItem]="selectedItem">
-
-        </app-view>
+       
         <div *ngIf="stocksItems$ | async as stocksItems" class="stocks__list">
+            <app-view *ngIf="isModalOpen" (back)="closeEditModal()" [data]="[stocksItems, selectedItem]"></app-view>
             <ul class="stocks__list-wrapper">
                 <li class="stocks__header">
                     <span *ngFor="let title of headerTitles" class="stocks__header-cel">{{title}}</span>
                 </li>
-                <li *ngFor="let item of stocksItems" (click)="getItemCell(item.id)" [ngClass]="{'selected': selectedItem == item.id}" class="stocks__items" >
+                <li *ngFor="let item of stocksItems" (click)="getItemCell(item.id, stocksItems)" [ngClass]="{'selected': selectedItem == item.id}" class="stocks__items" >
                     <span class="stocks__cell">{{item.name}}</span>
                     <span class="stocks__cell">{{item.description}}</span>
                     <span class="stocks__cell">{{item.code}}</span>
