@@ -1,9 +1,9 @@
 <div class="stocks">
     <div class="stocks__list-container">
-        <app-actions (edit)="openEditModal()" >
+        <app-actions (edit)="openEditModal()" [selectedItem]="selectedItem">
 
         </app-actions>
-        <app-view *ngIf="isModalOpen" (back)="closeEditModal()">
+        <app-view *ngIf="isModalOpen" (back)="closeEditModal()" [selectedItem]="selectedItem">
 
         </app-view>
         <div *ngIf="stocksItems$ | async as stocksItems" class="stocks__list">

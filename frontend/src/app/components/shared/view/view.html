@@ -1,6 +1,10 @@
 <div class="view-container">
     <div class="view-content">
-        <button>Confirm</button>
+        <button (click)="onConfirmOperation()">Confirm</button>
         <button (click)="onBackClick()">Back</button>
+        <div>
+            ItemId:{{selectedItem}}
+        </div>
     </div>
+    
 </div>
