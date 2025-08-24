@@ -2,13 +2,13 @@
     <div class="view-content">
         <button (click)="onConfirmOperation()">Confirm</button>
         <button (click)="onBackClick()">Back</button>
-        <!--<div *ngFor="let item of data" class="container-view__content">
-            <span *ngFor="let field of item | keyvalue" (click)="doOperation()" class="view-content__item">
-                {{ field.value}}
-            </span>
-        </div>-->
-    <form action="" class="view-form">
-
-    </form>
+        <div *For="let item of data" class="container-view__content">
+                {{ item.data}}
+                <p>Teste</p>
+            <form *For="let field of item | keyvalue" action="" class="view-form">
+                <label for="">{{field.value}}</label>
+                <input type="text" [value]="field.value"> 
+            </form>
+        </div>
     </div>
 </div>

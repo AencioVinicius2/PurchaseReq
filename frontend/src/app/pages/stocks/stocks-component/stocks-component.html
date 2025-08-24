@@ -4,13 +4,13 @@
 
         </app-actions>
        
-        <div *ngIf="stocksItems$ | async as stocksItems" class="stocks__list">
-            <app-view *ngIf="isModalOpen" (back)="closeEditModal(selectedItem)" [data]="[dataitemObjOfArray]"></app-view>
+        <div *If="stocksItems$ | async as stocksItems" class="stocks__list">
+            <app-view *If="isModalOpen" (back)="closeEditModal(selectedItem)" [data]="[dataitemObjOfArray]"></app-view>
             <ul class="stocks__list-wrapper">
                 <li class="stocks__header">
-                    <span *ngFor="let title of headerTitles" class="stocks__header-cel">{{title}}</span>
+                    <span *For="let title of headerTitles" class="stocks__header-cel">{{title}}</span>
                 </li>
-                <li *ngFor="let item of stocksItems" (click)="getItemCell(item.id, stocksItems)" [ngClass]="{'selected': selectedItem == item.id}" class="stocks__items" >
+                <li *For="let item of stocksItems" (click)="getItemCell(item.id, stocksItems)" [ngClass]="{'selected': selectedItem == item.id}" class="stocks__items" >
                     <span class="stocks__cell">{{item.name}}</span>
                     <span class="stocks__cell">{{item.description}}</span>
                     <span class="stocks__cell">{{item.code}}</span>
