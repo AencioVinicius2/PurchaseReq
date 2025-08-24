@@ -37,7 +37,7 @@ export class StocksComponent {
     this.itemObjOfArray = item;
   }
 
-  openEditModal(itemId: string):void {
+  openEditModal(itemId: string | null):void {
     this.isModalOpen = true;
     this.formatData(itemId);
   }
