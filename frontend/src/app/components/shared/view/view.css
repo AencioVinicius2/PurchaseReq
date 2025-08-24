@@ -12,9 +12,10 @@
 }
 
 .view-content {
-    background-color: antiquewhite;
+    background-color: white;
     width: 80vw;
     height: 40vw;
+    background-color: var(--primary-color);
 }
 
 .view-content button {
@@ -28,4 +29,17 @@
 .view-content button:hover {
     background-color: var(--primary-color);
     color: white;
+}
+
+.view-content__item {
+    border: 1px solid red;
+    background-color: var(--fields-background-color);
+    display: block;
+    padding-top: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.container-view__content {
+    background-color: var(--primary-color);
 }

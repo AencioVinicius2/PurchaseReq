@@ -8,12 +8,17 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class View {
   @Output() back = new EventEmitter<void>();
-  @Input() selectedItem: string | null = null;
+  @Input() data: any;
 
   onBackClick():void {
     this.back.emit();
   }
   onConfirmOperation():void {
-    console.log(this.selectedItem);
+    console.log('estou na view')
+    console.log(this.data);
+  }
+
+  doOperation():void {
+    console.log(this.data);
   }
 }

@@ -9,6 +9,6 @@
         public required int Quantity { get; set; }
         public required double Price { get; set; }  
         public DateTime CreatedAt { get; set; }
-        public DateTime Updated { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }
