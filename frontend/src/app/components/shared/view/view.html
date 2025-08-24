@@ -6,10 +6,12 @@
         <div class="container-view__content">
             {{ item.data}}
             <p>Teste</p>
-            <form *ngFor="let field of item | keyvalue" action="" class="view-form">
-                <label for="">{{field.value}}</label>
+            @for(field of item | keyvalue; track $index) {
+            <form action="" class="view-form">
+                <label for="">{{field.key}}</label>
                 <input type="text" [value]="field.value"> 
             </form>
+            }
         </div>
         }
     </div>

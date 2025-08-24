@@ -23,7 +23,7 @@ export class StocksComponent {
     'Created At',
     'Updated At'
   ]
-  selectedItem: string | null = null;
+  selectedItemId: string | null = null;
   itemObjOfArray: any;
   isModalOpen = false;
   dataItem: any;
@@ -32,8 +32,8 @@ export class StocksComponent {
 
   getItemCell(id: string, item: IStockItems[]): void {
     console.log('get Item cell')
-    this.selectedItem = id;
-    //console.log(this.selectedItem);
+    this.selectedItemId = id;
+    //console.log(this.selectedItemId);
     this.itemObjOfArray = item;
   }
 
@@ -50,6 +50,7 @@ export class StocksComponent {
   openViewModal(itemId: string | null):void {
     this.isModalOpen = true;
     this.formatData(itemId);
+    console.log('teste',this.selectedItemId)
   }
 
   formatData(itemId: string | null) {
