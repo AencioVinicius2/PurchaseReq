@@ -14,7 +14,7 @@ export class Stocks {
 
 
   getStockItem(): Observable<IStockItems[]> {
-    console.log('get method called');
+    console.log('get method called',this.stocksItems$);
     return this.http.get<IStockItems[]>(this.apiUrl);
   }
 }

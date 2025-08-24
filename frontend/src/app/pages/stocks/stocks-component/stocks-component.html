@@ -1,16 +1,22 @@
 <div class="stocks">
     <div class="stocks__list-container">
-        <app-actions (edit)="openEditModal(selectedItem)" (view)="openViewModal(selectedItem)" [selectedItem]="selectedItem">
+        <app-actions (edit)="openEditModal(selectedItemId)" (view)="openViewModal(selectedItemId)" [selectedItem]="selectedItemId">
 
         </app-actions>
        
-        <div *ngIf="stocksItems$ | async as stocksItems" class="stocks__list">
-            <app-view *ngIf="isModalOpen" (back)="closeEditModal(selectedItem)" [data]="[dataitemObjOfArray]"></app-view>
-            <ul class="stocks__list-wrapper">
+        @if(stocksItems$ | async; as stocksItems){
+        <div class="stocks__list">
+            @if(isModalOpen) {
+            <app-view (back)="closeEditModal(selectedItemId)" [data]="[dataitemObjOfArray]"></app-view>
+            }
+            <ul class="stocks__list-wrapper">   
                 <li class="stocks__header">
-                    <span *ngFor="let title of headerTitles" class="stocks__header-cel">{{title}}</span>
+                    @for(title of headerTitles; track $index) {
+                    <span class="stocks__header-cel">{{title}}</span>
+                }
                 </li>
-                <li *ngFor="let item of stocksItems" (click)="getItemCell(item.id, stocksItems)" [ngClass]="{'selected': selectedItem == item.id}" class="stocks__items" >
+                @for(item of stocksItems; track $index) {
+                <li (click)="getItemCell(item.id, stocksItems)" [ngClass]="{'selected': selectedItemId == item.id}" class="stocks__items" >
                     <span class="stocks__cell">{{item.name}}</span>
                     <span class="stocks__cell">{{item.description}}</span>
                     <span class="stocks__cell">{{item.code}}</span>
@@ -19,7 +25,9 @@
                     <span class="stocks__cell">{{item.createdAt | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
                     <span class="stocks__cell">{{item.updatedAt | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
                 </li>
+                }
             </ul>
         </div>
+        }
     </div>
 </div>

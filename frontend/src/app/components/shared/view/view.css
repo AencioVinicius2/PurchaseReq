@@ -15,7 +15,6 @@
     background-color: white;
     width: 80vw;
     height: 40vw;
-    background-color: var(--primary-color);
 }
 
 .view-content button {
@@ -41,5 +40,16 @@
 }
 
 .container-view__content {
-    background-color: var(--primary-color);
+    /*background-color: black;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.view-form {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    margin-bottom: 1rem;
 }
