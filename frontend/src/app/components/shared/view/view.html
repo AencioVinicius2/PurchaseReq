@@ -2,13 +2,15 @@
     <div class="view-content">
         <button (click)="onConfirmOperation()">Confirm</button>
         <button (click)="onBackClick()">Back</button>
-        <div *For="let item of data" class="container-view__content">
-                {{ item.data}}
-                <p>Teste</p>
-            <form *For="let field of item | keyvalue" action="" class="view-form">
+        @for(item of data; track $index) {
+        <div class="container-view__content">
+            {{ item.data}}
+            <p>Teste</p>
+            <form *ngFor="let field of item | keyvalue" action="" class="view-form">
                 <label for="">{{field.value}}</label>
                 <input type="text" [value]="field.value"> 
             </form>
         </div>
+        }
     </div>
 </div>
