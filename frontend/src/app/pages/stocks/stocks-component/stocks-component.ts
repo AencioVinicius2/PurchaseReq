@@ -22,55 +22,60 @@ export class StocksComponent {
     'price',
     'Created At',
     'Updated At'
-  ]
+  ];
   selectedItemId: string | null = null;
-  itemObjOfArray: any;
+  itemArrayOfObject: any;
   isModalOpen = false;
   dataItem: any;
   dataItemFormated: any;
   dataitemObjOfArray: any[] = [];
+  fieldsItem: any[] = [];
+ 
 
   getItemCell(id: string, item: IStockItems[]): void {
     console.log('get Item cell')
     this.selectedItemId = id;
-    //console.log(this.selectedItemId);
-    this.itemObjOfArray = item;
-  }
+    this.itemArrayOfObject = item;
+    console.log('getItemCell',this.itemArrayOfObject);
+  };
 
   openEditModal(itemId: string | null):void {
     this.isModalOpen = true;
     this.formatData(itemId);
-  }
+  };
 
   closeEditModal(itemId: string | null):void {
     this.isModalOpen = false;
-    this.dataitemObjOfArray = []
-  }
+    this.dataitemObjOfArray = [];
+    this.fieldsItem = [];
+  };
 
   openViewModal(itemId: string | null):void {
     this.isModalOpen = true;
     this.formatData(itemId);
-    console.log('teste',this.selectedItemId)
-  }
+  };
 
   formatData(itemId: string | null) {
-    for(let item of this.itemObjOfArray) {
+    for(let item of this.itemArrayOfObject) {
       if(item.id == itemId) {
         this.dataItem = item;
-        this.dataItemFormated = []
+        this.dataItemFormated = [];
         this.dataItemFormated = Object.entries(this.dataItem).forEach(([key, value]) => {
             if(key.includes('At') && value) {
-              this.dataitemObjOfArray.push(new Date(value as string).toLocaleString('pt-BR').replace(',','')
-            );
+              this.dataitemObjOfArray.push(new Date(value as string).toLocaleString('pt-BR').replace(',',''));
+              this.fieldsItem.push(key);
             }else if(value == '') {
               this.dataitemObjOfArray.push('');
+              this.fieldsItem.push(key);
             }else {
               this.dataitemObjOfArray.push(value);
+              this.fieldsItem.push(key);
             }
-        }) 
-      }
-    }
-  }
+        });
+      };
+    };
+    console.log('format data: ', this.itemArrayOfObject);
+  };
 
   
 }
