@@ -4,12 +4,11 @@
         <button (click)="onBackClick()">Back</button>
         @for(item of data; track $index) {
         <div class="container-view__content">
-            {{ item.data}}
             <p>Teste</p>
-            @for(field of item | keyvalue; track $index) {
+            @for(field of fields | keyvalue; track $index) {
             <form action="" class="view-form">
-                <label for="">{{field.key}}</label>
-                <input type="text" [value]="field.value"> 
+                <label>{{fields[$index]}}</label>
+                <input type="text" [value]="item[$index]" readonly> 
             </form>
             }
         </div>

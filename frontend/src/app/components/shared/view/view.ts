@@ -9,12 +9,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class View {
   @Output() back = new EventEmitter<void>();
   @Input() data: any;
+  @Input() fields: any;
+
+  objectKeys = Object.keys;
 
   onBackClick():void {
     this.back.emit();
   }
   onConfirmOperation():void {
-    console.log('estou na view')
+    console.log('estou na view', this.fields);
     console.log(this.data);
   }
 

@@ -8,13 +8,12 @@ import { IStockItems } from '../Models/stockItems.model';
 })
 export class Stocks {
   private readonly apiUrl:string = 'https://localhost:7037/api/StockItems'
-
   http = inject(HttpClient);
-  stocksItems$ = this.getStockItem
+  stocksItems$ = this.getStockItem()
 
 
   getStockItem(): Observable<IStockItems[]> {
-    console.log('get method called',this.stocksItems$);
+    console.log('get method called',this.stocksItems$,'teste');
     return this.http.get<IStockItems[]>(this.apiUrl);
   }
 }
