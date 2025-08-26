@@ -7,6 +7,7 @@ import { StocksComponent } from './pages/stocks/stocks-component/stocks-componen
 import { provideHttpClient } from '@angular/common/http';
 import { Actions } from './components/shared/actions/actions';
 import { View } from './components/shared/view/view';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { View } from './components/shared/view/view';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule 
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

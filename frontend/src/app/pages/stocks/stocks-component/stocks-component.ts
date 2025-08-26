@@ -43,6 +43,7 @@ export class StocksComponent {
  fieldsKeys: any[] = [];
  actualOperation: string = '';
  title: string = '';
+ dataView: IAddStockItemDTO[] = []
 
   stockIForm = new FormGroup({
     name: new FormControl<string>(''),
@@ -111,8 +112,21 @@ export class StocksComponent {
     console.log('format data: ', this.itemArrayOfObject);
   };
 
-  addStockItem():void {
+  getDataFromView(data: IAddStockItemDTO):void {
+    this.dataView = [];
+    this.dataView.push(data);
+    console.log('getDataFormView', this.dataView);
+    this.addStockItem(this.dataView);
+  }
+
+  addStockItem(data: any):void {
     this.isModalOpen = true;
+    const dataObj = Object.assign({}, ...data);
+    const dataFlatObj = Object.assign({}, ...Object.values(dataObj))
+    //const arrayData = dataObj.map(x)
+    //for(let obj of dataObj) {
+    //  obj
+    //}
     const addStockItemRequest: IAddStockItemDTO = {
       name: this.stockIForm.value.name ?? '',
       description: this.stockIForm.value.description ?? '',
@@ -121,8 +135,11 @@ export class StocksComponent {
       price: this.stockIForm.value.price ?? 0
     }
     this.fieldsKeys = Object.keys(this.fieldsItemPost);
+    //console.log('data', data);
+    console.log('obj', dataFlatObj.name);
     //console.log('at add stock', this.fieldsItemPost);
-    this.stockService.postStockItem(addStockItemRequest);
+    //this.stockService.postStockItem(addStockItemRequest);
+    
   }
   
 }

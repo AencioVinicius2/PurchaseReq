@@ -7,7 +7,7 @@
         @if(stocksItems$ | async; as stocksItems){
         <div class="stocks__list">
             @if(isModalOpen) {
-            <app-view (back)="closeEditModal()" [title]="title" [data]="[dataitemObjOfArray]" [fields]="fieldsKeys" [operation]="actualOperation"></app-view>
+            <app-view (dataOutput)="getDataFromView($event)" (back)="closeEditModal()" [title]="title" [data]="[dataitemObjOfArray]" [fields]="fieldsKeys" [operation]="actualOperation"></app-view>
             }
             <ul class="stocks__list-wrapper">   
                 <li class="stocks__header">

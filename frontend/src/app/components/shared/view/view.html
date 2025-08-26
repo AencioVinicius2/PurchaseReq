@@ -6,10 +6,10 @@
         <div class="container-view__content">
             <p>{{title}}</p>
             @for(field of fields | keyvalue; track $index) {
-            <form action="" class="view-form">
+            <form #f="ngForm" novalidate class="view-form">
                 <label>{{fields[$index]}}</label>
                 @if(operation == '1') {
-                    <input type="text" [value]=""> 
+                    <input type="text" name="{{fields[$index]}}" id="{{fields[$index]}}"  ngModel> 
                 }@else if(operation == '2') {
                     <input type="text" [value]="item[$index]" readonly> 
                 }@else if(operation == '3') {
