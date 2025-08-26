@@ -12,23 +12,21 @@ export class Actions {
   @Output() add = new EventEmitter<void>();
   @Input() selectedItem: string | null = null;
 
-  onEditClick(operation: string, item:string | null):void {
-    if(item !== null) {
-      this.edit.emit();
-    }
-    console.log(operation, item);
-  }
 
-  onViewClick(operation: string, item:string | null): void {
-    if(item !== null) {
-      this.view.emit();
+  openView(operation: string, item: string | null): void {
+    if(operation == '1') {
+      this.add.emit();
     }
-    console.log(operation, item);
-  }
-
-  onAddlick(operation: string,): void {
-    this.add.emit();
-    console.log(operation);
+    if(operation == '2') {
+      if(item !== null) {
+        this.view.emit();
+      }
+    }
+    if(operation == '3') {
+      if(item !== null) {
+        this.edit.emit();
+      }
+    }
   }
 
   onConfirmOperation():void {

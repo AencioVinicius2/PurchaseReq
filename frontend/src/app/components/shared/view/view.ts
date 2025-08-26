@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IAddStockItemDTO } from '../../../Models/addStockDTO';
 
 @Component({
   selector: 'app-view',
@@ -10,8 +11,9 @@ export class View {
   @Output() back = new EventEmitter<void>();
   @Input() data: any;
   @Input() fields: any;
+  @Input() operation: any;
+  @Input() title: any;
 
-  objectKeys = Object.keys;
 
   onBackClick():void {
     this.back.emit();

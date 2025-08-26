@@ -40,6 +40,9 @@ export class StocksComponent {
   quantity: 0,
   price: 0
 };
+ fieldsKeys: any[] = [];
+ actualOperation: string = '';
+ title: string = '';
 
   stockIForm = new FormGroup({
     name: new FormControl<string>(''),
@@ -51,27 +54,40 @@ export class StocksComponent {
  
 
   getItemCell(id: string, item: IStockItems[]): void {
-    console.log('get Item cell')
     this.selectedItemId = id;
     this.itemArrayOfObject = item;
     console.log('getItemCell',this.itemArrayOfObject);
   };
 
-  openEditModal(itemId: string | null):void {
-    this.isModalOpen = true;
-    this.formatData(itemId);
-  };
-
-  closeEditModal(itemId: string | null):void {
+  closeEditModal():void {
     this.isModalOpen = false;
     this.dataitemObjOfArray = [];
     this.fieldsItem = [];
   };
 
-  openViewModal(itemId: string | null):void {
+  viewModal(operation: string, itemId: string | null):void {
     this.isModalOpen = true;
-    this.formatData(itemId);
-  };
+    if(operation == '1') {
+      this.fieldsKeys = Object.keys(this.fieldsItemPost);
+      this.actualOperation = operation;
+      this.title = 'Create new Item'
+      console.log('actual operation 1', this.actualOperation);
+    }
+    if(operation == '2') {
+      this.formatData(itemId);
+      this.fieldsKeys = Object.keys(this.fieldsItemPost);
+      this.actualOperation = operation;
+      this.title = 'View item'
+      console.log('actual operation 2', this.actualOperation);
+    }
+    if(operation == '3') {
+      this.formatData(itemId);
+      this.fieldsKeys = Object.keys(this.fieldsItemPost);
+      this.actualOperation = operation;
+      this.title = 'Update item'
+      console.log('actual operation 3', this.actualOperation);
+    }
+  }
 
   formatData(itemId: string | null):void {
     for(let item of this.itemArrayOfObject) {
@@ -104,8 +120,8 @@ export class StocksComponent {
       quantity: this.stockIForm.value.quantity ?? 0,
       price: this.stockIForm.value.price ?? 0
     }
-    this.fieldsItemPost;
-    console.log('at add stock', this.fieldsItemPost);
+    this.fieldsKeys = Object.keys(this.fieldsItemPost);
+    //console.log('at add stock', this.fieldsItemPost);
     this.stockService.postStockItem(addStockItemRequest);
   }
   
