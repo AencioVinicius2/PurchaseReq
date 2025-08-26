@@ -1,8 +1,8 @@
 <div class="nav_items">
     <div class="items-options">
-        <button>Add</button>
-        <button (click)="onViewClick('1', selectedItem)">View</button>
-        <button (click)="onEditClick('2', selectedItem)">Edit</button>
-        <button>Remove</button>
+        <button (click)="openView('1', null)">Add</button>
+        <button (click)="openView('2', selectedItem)">View</button>
+        <button (click)="openView('3', selectedItem)">Edit</button>
+        <button (click)="openView('4', null)">Remove</button>
     </div>
 </div>

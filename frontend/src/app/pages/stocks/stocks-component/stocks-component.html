@@ -1,13 +1,13 @@
 <div class="stocks">
     <div class="stocks__list-container">
-        <app-actions (edit)="openEditModal(selectedItemId)" (view)="openViewModal(selectedItemId)" [selectedItem]="selectedItemId">
+        <app-actions (add)="viewModal('1', null)"  (view)="viewModal('2',selectedItemId)"  (edit)="viewModal('3',selectedItemId)"[selectedItem]="selectedItemId">
 
         </app-actions>
        
         @if(stocksItems$ | async; as stocksItems){
         <div class="stocks__list">
             @if(isModalOpen) {
-            <app-view (back)="closeEditModal(selectedItemId)" [data]="[dataitemObjOfArray]" [fields]="fieldsItem"></app-view>
+            <app-view (dataOutput)="getDataFromView($event)" (back)="closeEditModal()" [title]="title" [data]="[dataitemObjOfArray]" [fields]="fieldsKeys" [operation]="actualOperation"></app-view>
             }
             <ul class="stocks__list-wrapper">   
                 <li class="stocks__header">
