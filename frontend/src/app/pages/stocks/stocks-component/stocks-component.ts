@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, inject, Input, output, Output } from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
 import { IStockItems } from '../../../Models/stockItems.model';
 import { Actions } from '../../../components/shared/actions/actions';
 import { Observable } from 'rxjs';
 import { Stocks } from '../../../services/stocks';
+import { IAddStockItemDTO } from '../../../Models/addStockDTO';
 
 @Component({
   selector: 'app-stocks-component',
@@ -14,6 +16,7 @@ import { Stocks } from '../../../services/stocks';
 export class StocksComponent {
   private stockService = inject(Stocks);
   stocksItems$: Observable<IStockItems[]> = this.stockService.getStockItem();
+
   headerTitles:string[] = [
     'Name',
     'Description',
@@ -30,6 +33,21 @@ export class StocksComponent {
   dataItemFormated: any;
   dataitemObjOfArray: any[] = [];
   fieldsItem: any[] = [];
+  fieldsItemPost: IAddStockItemDTO = {
+  name: '',
+  description: '',
+  code: '',
+  quantity: 0,
+  price: 0
+};
+
+  stockIForm = new FormGroup({
+    name: new FormControl<string>(''),
+    description: new FormControl<string | null>(null),
+    code: new FormControl<string>(''),
+    quantity: new FormControl<number | null>(null),
+    price: new FormControl<number | null>(null),  
+  })
  
 
   getItemCell(id: string, item: IStockItems[]): void {
@@ -55,7 +73,7 @@ export class StocksComponent {
     this.formatData(itemId);
   };
 
-  formatData(itemId: string | null) {
+  formatData(itemId: string | null):void {
     for(let item of this.itemArrayOfObject) {
       if(item.id == itemId) {
         this.dataItem = item;
@@ -77,5 +95,18 @@ export class StocksComponent {
     console.log('format data: ', this.itemArrayOfObject);
   };
 
+  addStockItem():void {
+    this.isModalOpen = true;
+    const addStockItemRequest: IAddStockItemDTO = {
+      name: this.stockIForm.value.name ?? '',
+      description: this.stockIForm.value.description ?? '',
+      code: this.stockIForm.value.code ?? '',
+      quantity: this.stockIForm.value.quantity ?? 0,
+      price: this.stockIForm.value.price ?? 0
+    }
+    this.fieldsItemPost;
+    console.log('at add stock', this.fieldsItemPost);
+    this.stockService.postStockItem(addStockItemRequest);
+  }
   
 }

@@ -9,6 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class Actions {
   @Output() edit = new EventEmitter<void>();
   @Output() view = new EventEmitter<void>();
+  @Output() add = new EventEmitter<void>();
   @Input() selectedItem: string | null = null;
 
   onEditClick(operation: string, item:string | null):void {
@@ -23,6 +24,11 @@ export class Actions {
       this.view.emit();
     }
     console.log(operation, item);
+  }
+
+  onAddlick(operation: string,): void {
+    this.add.emit();
+    console.log(operation);
   }
 
   onConfirmOperation():void {
