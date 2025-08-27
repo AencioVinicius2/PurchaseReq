@@ -3,7 +3,6 @@
         <button (click)="onConfirmOperation()">Confirm</button>
         <button (click)="onBackClick()">Back</button>
         @if(operation == '1') {
-            @for(item of data; track $index) {
             <div class="container-view__content">
                 <p>{{title}}</p>
                 @for(field of fields | keyvalue; track $index) {
@@ -13,20 +12,17 @@
                 </form>
                 }
             </div>
-            }
         }@else if(operation == '2') {
-            @for(item of data | keyvalue; track item.key) {
-                <div class="container-view__content">
-                    <p>{{title}}</p>
-                    <p>Teste: {{data}}</p>
-                    <!--@for(field of fields | keyvalue; track $index) {-->
-                    <form #f="ngForm" novalidate class="view-form">
-                        <label>{{item.key}}</label>
-                        <input type="text" name="{{fields[$index]}}" id="{{item.value}}"  ngModel> 
-                    </form>
-                   
-                </div>
-            } 
+            <div class="container-view__content">
+                <p>{{title}}</p>     
+                <!--@for(field of fields | keyvalue; track $index) {-->
+                <form #f="ngForm" novalidate class="view-form">
+                @for(item of data | keyvalue; track $index) { 
+                    <label>{{item.key}}</label>
+                    <input type="text" name="teste" value="{{item.value}}">
+                }
+                </form>            
+            </div>
         }
     </div>
 </div>

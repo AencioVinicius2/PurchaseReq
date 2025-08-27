@@ -13,16 +13,7 @@ export class View {
   @Output() back = new EventEmitter<void>();
   @Output() dataOutput = new EventEmitter<any>();
   @Input() AddData: IAddStockItemDTO[] = [];
-  @Input() data: IStockItems = {
-    id: '',
-    name: '',
-    description: '',
-    code: '',
-    quantity: '0',
-    price: '0',
-    createdAt: '',
-    updatedAt: ''
-  };
+  @Input() data: any;
   @Input() fields: any;
   @Input() operation: any;
   @Input() title: any;
@@ -42,18 +33,14 @@ export class View {
       this.dataInput = [];
       this.submitForm();
     }
-    /*this.data.forEach(obj => {
-      console.log('obj:', obj);
-    })*/
     console.log('onConfirm',this.data);
   }
 
   submitForm():void {
     const allFormData = this.forms.map(form => form.value);
     this.dataInput = [];
-    this.dataInput.push(...allFormData);
     this.dataOutput.emit(allFormData);
-    console.log('submitForm', this.dataInput);
+    console.log('submitForm', this.data);
   }
 
   doOperation():void {

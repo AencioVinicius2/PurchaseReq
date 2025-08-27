@@ -12,17 +12,6 @@ import { IAddStockItemDTO } from '../../../Models/addStockDTO';
 })
 export class StocksComponent {
   private stockService = inject(Stocks);
-  private defaultStockItem: IStockItems = {
-    id: '',
-    name: '',
-    description: '',
-    code: '',
-    quantity: '0',
-    price: '0',
-    createdAt: '',
-    updatedAt: ''
-  };
-  
   stocksItems$: Observable<IStockItems[]> = this.stockService.getStockItem();
 
   headerTitles:string[] = [
@@ -38,59 +27,77 @@ export class StocksComponent {
   itemArrayOfObject: any;
   isModalOpen = false;
   dataItem: any;
-  dataItemFormated: any;
+  dataItemToFormat: any;
   dataItemObj: IStockItems = {
     id: '',
     name: '',
     description: '',
     code: '',
-    quantity: '0,',
-    price: '0',
+    quantity: '',
+    price: '',
     createdAt: '',
     updatedAt: '',
   };
-  fieldsItem: any[] = [];
   fieldsItemPost: IAddStockItemDTO = {
   name: '',
   description: '',
   quantity: 0,
   price: 0
 };
- fieldsKeys: any[] = [];
+ fieldsPost: any[] = [];
  actualOperation: string = '';
  title: string = '';
- dataView: IAddStockItemDTO[] = []
+ currentItem: IStockItems = {
+    id: '',
+    name: '',
+    description: '',
+    code: '',
+    quantity: '',
+    price: '',
+    createdAt: '',
+    updatedAt: '',
+ };
+ dataViewForPost: IAddStockItemDTO[] = []
 
   getItemCell(id: string, item: IStockItems[]): void {
     this.selectedItemId = id;
     this.itemArrayOfObject = item;
-    console.log('getItemCell',this.itemArrayOfObject);
+    this.currentItem = this.itemArrayOfObject.find((items: IStockItems) => items.id == id);
+
+    console.log('getItemCell', this.currentItem);
   };
 
   closeEditModal():void {
     this.isModalOpen = false;
-    this.dataItemObj = {...this.defaultStockItem};
-    this.fieldsItem = [];
+    this.dataItemObj = {
+    id: '',
+    name: '',
+    description: '',
+    code: '',
+    quantity: '',
+    price: '',
+    createdAt: '',
+    updatedAt: '',
+    };
   };
 
   viewModal(operation: string, itemId: string | null):void {
     this.isModalOpen = true;
     if(operation == '1') {
-      this.fieldsKeys = Object.keys(this.fieldsItemPost);
+      this.fieldsPost = Object.keys(this.fieldsItemPost);
       this.actualOperation = operation;
       this.title = 'Create new Item'
-      console.log('actual operation 1', this.actualOperation);
+      console.log('fields', this.fieldsPost);
     }
     if(operation == '2') {
       this.formatData(itemId);
-      this.fieldsKeys = Object.keys(this.fieldsItemPost);
       this.actualOperation = operation;
       this.title = 'View item'
       console.log('actual operation 2', this.actualOperation);
     }
     if(operation == '3') {
       this.formatData(itemId);
-      this.fieldsKeys = Object.keys(this.fieldsItemPost);
+      this.fieldsPost = Object.keys(this.fieldsItemPost);
       this.actualOperation = operation;
       this.title = 'Update item'
       console.log('actual operation 3', this.actualOperation);
@@ -101,34 +108,29 @@ export class StocksComponent {
     for(let item of this.itemArrayOfObject) {
       if(item.id == itemId) {
         this.dataItem = item;
-        this.dataItemFormated = [];
-        this.dataItemFormated = Object.entries(this.dataItem).forEach(([key, value]) => {
-            if(key.includes('At') && value) {
-              this.dataItemObj[key as keyof IStockItems] = new Date(value as string)
-              .toLocaleString('pt-BR')
-              .replace(',','');
-              this.fieldsItem.push(key);
-            }else if(value == '') {
-              this.dataItemObj[key as keyof IStockItems] = ''; 
-              this.fieldsItem.push(key);
-            }else {
-              this.dataItemObj[key as keyof IStockItems] = value as string;
-              this.fieldsItem.push(key);
-            }
-        });
+        this.dataItemToFormat = [];
+        this.dataItemToFormat = Object.entries(this.dataItem).forEach(([key, value]) => {
+          if(key.includes('At') && value) {
+            this.dataItemObj[key as keyof IStockItems] = new Date(value as string)
+            .toLocaleString('pt-BR')
+            .replace(',','');
+          }else if(value == '') {
+            this.dataItemObj[key as keyof IStockItems] = ''; 
+          }else {
+            this.dataItemObj[key as keyof IStockItems] = value as string;
+          }
+      });
+      
       };
     };
-    /*this.dataItem.forEach(obj => {
-      console.log('obj', obj);
-    })*/
-    console.log('format dataItemObj: ', this.dataItemObj);
+    console.log('array of obj: ', this.itemArrayOfObject);
   };
 
   getDataFromView(data: IAddStockItemDTO):void {
-    this.dataView = [];
-    this.dataView.push(data);
-    console.log('getDataFormView', this.dataView);
-    this.addStockItem(this.dataView);
+    this.dataViewForPost = [];
+    this.dataViewForPost.push(data);
+    console.log('getDataFormView', this.dataViewForPost);
+    this.addStockItem(this.dataViewForPost);
   }
 
   async addStockItem(data: any): Promise<void> {
@@ -140,12 +142,10 @@ export class StocksComponent {
       description: dataFlatObj.description ?? '',
       quantity: dataFlatObj.quantity ?? 0,
       price: dataFlatObj.price ?? 0,
-      //createdAt:  new Date().toLocaleString('pt-BR'),
-      //updatedAt: new Date().toLocaleString('pt-BR'),
     };
     try {
       const response = await lastValueFrom(this.stockService.postStockItem(addStockItemRequest));
-      console.log('Item criado:', response);
+      console.log('Item created', response);
     } catch(error) {
       console.log(error);
     }
