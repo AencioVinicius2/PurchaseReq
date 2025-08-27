@@ -21,12 +21,14 @@ namespace PurchaseReq.Controllers
         [HttpPost]
         public async Task<IActionResult> AddStockItem(AddStockItemDTO request)
         {
+            var LastCode = await dbContext.Stocks.MaxAsync(x => x.Code);
+            LastCode++;
             var Item = new Stock
             {
                 Id = Guid.NewGuid(),
                 Name = request.Name,
                 Description = request.Description,
-                Code = request.Code,
+                Code = LastCode++,
                 Quantity = request.Quantity,
                 Price = request.Price,
                 CreatedAt = DateTime.Now,
