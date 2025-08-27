@@ -105,6 +105,7 @@ export class StocksComponent {
   }
 
   formatData(itemId: string | null):void {
+    
     for(let item of this.itemArrayOfObject) {
       if(item.id == itemId) {
         this.dataItem = item;
