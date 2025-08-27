@@ -3,7 +3,7 @@ import { Component, EventEmitter, inject, Input, output, Output } from '@angular
 import {FormControl, FormGroup} from '@angular/forms';
 import { IStockItems } from '../../../Models/stockItems.model';
 import { Actions } from '../../../components/shared/actions/actions';
-import { Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import { Stocks } from '../../../services/stocks';
 import { IAddStockItemDTO } from '../../../Models/addStockDTO';
 
@@ -44,15 +44,6 @@ export class StocksComponent {
  actualOperation: string = '';
  title: string = '';
  dataView: IAddStockItemDTO[] = []
-
-  stockIForm = new FormGroup({
-    name: new FormControl<string>(''),
-    description: new FormControl<string | null>(null),
-    code: new FormControl<string>(''),
-    quantity: new FormControl<number | null>(null),
-    price: new FormControl<number | null>(null),  
-  })
- 
 
   getItemCell(id: string, item: IStockItems[]): void {
     this.selectedItemId = id;
@@ -119,7 +110,7 @@ export class StocksComponent {
     this.addStockItem(this.dataView);
   }
 
-  addStockItem(data: any):void {
+  async addStockItem(data: any): Promise<void> {
     this.isModalOpen = true;
     const dataObj = Object.assign({}, ...data);
     const dataFlatObj = Object.assign({}, ...Object.values(dataObj))
@@ -128,18 +119,20 @@ export class StocksComponent {
     //  obj
     //}
     const addStockItemRequest: IAddStockItemDTO = {
-      name: this.stockIForm.value.name ?? '',
-      description: this.stockIForm.value.description ?? '',
-      code: this.stockIForm.value.code ?? '',
-      quantity: this.stockIForm.value.quantity ?? 0,
-      price: this.stockIForm.value.price ?? 0
+      name: dataFlatObj.name ?? '',
+      description: dataFlatObj.description ?? '',
+      code: dataFlatObj.code ?? '',
+      quantity: dataFlatObj.quantity ?? 0,
+      price: dataFlatObj.price ?? 0,
+      //createdAt:  new Date().toLocaleString('pt-BR'),
+      //updatedAt: new Date().toLocaleString('pt-BR'),
+    };
+    try {
+      const response = await lastValueFrom(this.stockService.postStockItem(addStockItemRequest));
+      console.log('Item criado:', response);
+    } catch(error) {
+      console.log(error);
     }
-    this.fieldsKeys = Object.keys(this.fieldsItemPost);
-    //console.log('data', data);
-    console.log('obj', dataFlatObj.name);
-    //console.log('at add stock', this.fieldsItemPost);
-    //this.stockService.postStockItem(addStockItemRequest);
-    
   }
   
 }
