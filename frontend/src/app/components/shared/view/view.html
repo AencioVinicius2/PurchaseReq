@@ -2,22 +2,31 @@
     <div class="view-content">
         <button (click)="onConfirmOperation()">Confirm</button>
         <button (click)="onBackClick()">Back</button>
-        @for(item of data; track $index) {
-        <div class="container-view__content">
-            <p>{{title}}</p>
-            @for(field of fields | keyvalue; track $index) {
-            <form #f="ngForm" novalidate class="view-form">
-                <label>{{fields[$index]}}</label>
-                @if(operation == '1') {
+        @if(operation == '1') {
+            @for(item of data; track $index) {
+            <div class="container-view__content">
+                <p>{{title}}</p>
+                @for(field of fields | keyvalue; track $index) {
+                <form #f="ngForm" novalidate class="view-form">
+                    <label>{{fields[$index]}}</label>
                     <input type="text" name="{{fields[$index]}}" id="{{fields[$index]}}"  ngModel> 
-                }@else if(operation == '2') {
-                    <input type="text" [value]="item[$index]" readonly> 
-                }@else if(operation == '3') {
-                    <input type="text" [value]="item[$index]"> 
+                </form>
                 }
-            </form>
+            </div>
             }
-        </div>
+        }@else if(operation == '2') {
+            @for(item of data | keyvalue; track item.key) {
+                <div class="container-view__content">
+                    <p>{{title}}</p>
+                    <p>Teste: {{data}}</p>
+                    <!--@for(field of fields | keyvalue; track $index) {-->
+                    <form #f="ngForm" novalidate class="view-form">
+                        <label>{{item.key}}</label>
+                        <input type="text" name="{{fields[$index]}}" id="{{item.value}}"  ngModel> 
+                    </form>
+                   
+                </div>
+            } 
         }
     </div>
 </div>

@@ -12,6 +12,17 @@ import { IAddStockItemDTO } from '../../../Models/addStockDTO';
 })
 export class StocksComponent {
   private stockService = inject(Stocks);
+  private defaultStockItem: IStockItems = {
+    id: '',
+    name: '',
+    description: '',
+    code: '',
+    quantity: '0',
+    price: '0',
+    createdAt: '',
+    updatedAt: ''
+  };
+  
   stocksItems$: Observable<IStockItems[]> = this.stockService.getStockItem();
 
   headerTitles:string[] = [
@@ -28,7 +39,16 @@ export class StocksComponent {
   isModalOpen = false;
   dataItem: any;
   dataItemFormated: any;
-  dataitemObjOfArray: any[] = [];
+  dataItemObj: IStockItems = {
+    id: '',
+    name: '',
+    description: '',
+    code: '',
+    quantity: '0,',
+    price: '0',
+    createdAt: '',
+    updatedAt: '',
+  };
   fieldsItem: any[] = [];
   fieldsItemPost: IAddStockItemDTO = {
   name: '',
@@ -49,7 +69,7 @@ export class StocksComponent {
 
   closeEditModal():void {
     this.isModalOpen = false;
-    this.dataitemObjOfArray = [];
+    this.dataItemObj = {...this.defaultStockItem};
     this.fieldsItem = [];
   };
 
@@ -84,19 +104,24 @@ export class StocksComponent {
         this.dataItemFormated = [];
         this.dataItemFormated = Object.entries(this.dataItem).forEach(([key, value]) => {
             if(key.includes('At') && value) {
-              this.dataitemObjOfArray.push(new Date(value as string).toLocaleString('pt-BR').replace(',',''));
+              this.dataItemObj[key as keyof IStockItems] = new Date(value as string)
+              .toLocaleString('pt-BR')
+              .replace(',','');
               this.fieldsItem.push(key);
             }else if(value == '') {
-              this.dataitemObjOfArray.push('');
+              this.dataItemObj[key as keyof IStockItems] = ''; 
               this.fieldsItem.push(key);
             }else {
-              this.dataitemObjOfArray.push(value);
+              this.dataItemObj[key as keyof IStockItems] = value as string;
               this.fieldsItem.push(key);
             }
         });
       };
     };
-    console.log('format data: ', this.itemArrayOfObject);
+    /*this.dataItem.forEach(obj => {
+      console.log('obj', obj);
+    })*/
+    console.log('format dataItemObj: ', this.dataItemObj);
   };
 
   getDataFromView(data: IAddStockItemDTO):void {
