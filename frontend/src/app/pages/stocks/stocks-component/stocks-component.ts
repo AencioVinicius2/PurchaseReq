@@ -1,8 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, inject, Input, output, Output } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import { Component, inject } from '@angular/core';
 import { IStockItems } from '../../../Models/stockItems.model';
-import { Actions } from '../../../components/shared/actions/actions';
 import { lastValueFrom, Observable } from 'rxjs';
 import { Stocks } from '../../../services/stocks';
 import { IAddStockItemDTO } from '../../../Models/addStockDTO';
@@ -36,7 +33,6 @@ export class StocksComponent {
   fieldsItemPost: IAddStockItemDTO = {
   name: '',
   description: '',
-  code: '',
   quantity: 0,
   price: 0
 };
@@ -114,14 +110,9 @@ export class StocksComponent {
     this.isModalOpen = true;
     const dataObj = Object.assign({}, ...data);
     const dataFlatObj = Object.assign({}, ...Object.values(dataObj))
-    //const arrayData = dataObj.map(x)
-    //for(let obj of dataObj) {
-    //  obj
-    //}
     const addStockItemRequest: IAddStockItemDTO = {
       name: dataFlatObj.name ?? '',
       description: dataFlatObj.description ?? '',
-      code: dataFlatObj.code ?? '',
       quantity: dataFlatObj.quantity ?? 0,
       price: dataFlatObj.price ?? 0,
       //createdAt:  new Date().toLocaleString('pt-BR'),

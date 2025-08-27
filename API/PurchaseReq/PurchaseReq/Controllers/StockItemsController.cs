@@ -47,7 +47,7 @@ namespace PurchaseReq.Controllers
                 else
                 {
                     return BadRequest("Quantity must be at least 1.");
-                }
+                }   
 
             }
             else
@@ -59,7 +59,7 @@ namespace PurchaseReq.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllStockItems()
         {
-            var items = await dbContext.Stocks.ToListAsync();
+            var items = (await dbContext.Stocks.ToListAsync()).OrderBy(x => x.Code).ToList();
             if(items is null)
             {
                 return NotFound(items);
