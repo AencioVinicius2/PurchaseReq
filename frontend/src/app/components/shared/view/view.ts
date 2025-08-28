@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, QueryList, ViewChildren,  } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import { IAddStockItemDTO } from '../../../Models/addStockDTO';
+import { IStockItems } from '../../../Models/stockItems.model';
 
 @Component({
   selector: 'app-view',
@@ -11,6 +12,7 @@ import { IAddStockItemDTO } from '../../../Models/addStockDTO';
 export class View {
   @Output() back = new EventEmitter<void>();
   @Output() dataOutput = new EventEmitter<any>();
+  @Input() AddData: IAddStockItemDTO[] = [];
   @Input() data: any;
   @Input() fields: any;
   @Input() operation: any;
@@ -29,19 +31,16 @@ export class View {
     if(this.operation == '1') {
       console.log('at onconfirm');
       this.dataInput = [];
-      //const formData = f.value;
-      //this.dataInput.push(formData);
-      //this.dataOutput.emit(formData);
       this.submitForm();
     }
+    console.log('onConfirm',this.data);
   }
 
   submitForm():void {
     const allFormData = this.forms.map(form => form.value);
     this.dataInput = [];
-    this.dataInput.push(...allFormData);
     this.dataOutput.emit(allFormData);
-    console.log('submitForm', this.dataInput);
+    console.log('submitForm', this.data);
   }
 
   doOperation():void {

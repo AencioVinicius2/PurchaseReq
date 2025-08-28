@@ -5,6 +5,6 @@ export interface IStockItems {
     code: string;
     quantity: string;
     price: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
 }

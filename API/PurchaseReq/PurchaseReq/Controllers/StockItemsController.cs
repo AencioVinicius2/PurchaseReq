@@ -21,12 +21,14 @@ namespace PurchaseReq.Controllers
         [HttpPost]
         public async Task<IActionResult> AddStockItem(AddStockItemDTO request)
         {
+            var LastCode = await dbContext.Stocks.MaxAsync(x => x.Code);
+            LastCode++;
             var Item = new Stock
             {
                 Id = Guid.NewGuid(),
                 Name = request.Name,
                 Description = request.Description,
-                Code = request.Code,
+                Code = LastCode++,
                 Quantity = request.Quantity,
                 Price = request.Price,
                 CreatedAt = DateTime.Now,
@@ -45,7 +47,7 @@ namespace PurchaseReq.Controllers
                 else
                 {
                     return BadRequest("Quantity must be at least 1.");
-                }
+                }   
 
             }
             else
@@ -57,7 +59,7 @@ namespace PurchaseReq.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllStockItems()
         {
-            var items = await dbContext.Stocks.ToListAsync();
+            var items = (await dbContext.Stocks.ToListAsync()).OrderBy(x => x.Code).ToList();
             if(items is null)
             {
                 return NotFound(items);
