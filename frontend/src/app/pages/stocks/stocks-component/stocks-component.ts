@@ -147,6 +147,10 @@ export class StocksComponent {
     try {
       const response = await lastValueFrom(this.stockService.postStockItem(addStockItemRequest));
       console.log('Item created', response);
+
+      this.stocksItems$ = this.stockService.getStockItem();
+      this.isModalOpen = false;
+      
     } catch(error) {
       console.log(error);
     }
