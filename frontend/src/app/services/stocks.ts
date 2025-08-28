@@ -18,4 +18,9 @@ export class Stocks {
   postStockItem(request: IAddStockItemDTO): Observable<IAddStockItemDTO> {
     return this.http.post<IAddStockItemDTO>('https://localhost:7037/api/StockItems', request);
   }
+
+  deleteStockItem(code: string): Observable<IStockItems[]> {
+    return this.http.delete<IStockItems[]>(`${this.apiUrl}/${code}`);
+  }
+
 }

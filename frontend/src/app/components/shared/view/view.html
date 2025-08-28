@@ -19,9 +19,19 @@
                 <form #f="ngForm" novalidate class="view-form">
                 @for(item of data | keyvalue; track $index) { 
                     <label>{{item.key}}</label>
-                    <input type="text" name="teste" value="{{item.value}}">
+                    <input type="text" name="{{item.key}}" value="{{item.value}}">
                 }
                 </form>            
+            </div>
+        }@else if(operation == '3') {
+            <div class="container-view__content">
+                <p>{{title}}</p>
+                @for(item of data | keyvalue; track $index) {
+                <form #f="ngForm" novalidate class="view-form">
+                    <label>{{item.key}}</label>
+                    <input type="text"  value="{{item.value}}" name="{{fields[$index]}}" id="{{fields[$index]}}"> 
+                </form>
+                }
             </div>
         }
     </div>

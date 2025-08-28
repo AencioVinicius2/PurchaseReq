@@ -1,6 +1,6 @@
 <div class="stocks">
     <div class="stocks__list-container">
-        <app-actions (add)="viewModal('1', null)"  (view)="viewModal('2',selectedItemId)"  (edit)="viewModal('3',selectedItemId)"[selectedItem]="selectedItemId">
+        <app-actions (add)="viewModal('1', null)"  (view)="viewModal('2',selectedItemId)"  (edit)="viewModal('3',selectedItemId)" (delete)="viewModal('4',selectedItemId)" [selectedItem]="selectedItemId">
 
         </app-actions>
        

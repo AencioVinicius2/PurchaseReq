@@ -102,6 +102,11 @@ export class StocksComponent {
       this.title = 'Update item'
       console.log('actual operation 3', this.actualOperation);
     }
+    if(operation == '4') {
+      if(itemId !== null) {
+        this.deleteSotckItem(this.currentItem.code);
+      }
+    }
   }
 
   formatData(itemId: string | null):void {
@@ -155,5 +160,16 @@ export class StocksComponent {
       console.log(error);
     }
   }
+
+  async deleteSotckItem(code: string) {
+    try {
+      this.isModalOpen = false;
+      await lastValueFrom(this.stockService.deleteStockItem(code));
+      console.log('delete', code)
+      this.stocksItems$ = this.stockService.getStockItem();
+    } catch (error) {
+    console.log(error);
+  }
+  } 
   
 }
