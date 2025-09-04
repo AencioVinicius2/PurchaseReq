@@ -10,6 +10,7 @@ export class Actions {
   @Output() edit = new EventEmitter<void>();
   @Output() view = new EventEmitter<void>();
   @Output() add = new EventEmitter<void>();
+  @Output() delete = new EventEmitter<void>();
   @Input() selectedItem: string | null = null;
 
 
@@ -25,6 +26,11 @@ export class Actions {
     if(operation == '3') {
       if(item !== null) {
         this.edit.emit();
+      }
+    }
+    if(operation == '4') {
+      if(item !== null) {
+        this.delete.emit();
       }
     }
   }
